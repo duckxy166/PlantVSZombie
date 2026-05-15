@@ -1,0 +1,38 @@
+{
+    "schemaVersion": 1,
+    "id": "plantvszombie",
+    "version": "${version}",
+    "name": "PlantVSZombie",
+    "description": "A Minecraft Fabric mod inspired by Plants vs. Zombies.",
+    "authors": [
+        "saharat"
+    ],
+    "contact": {
+        "homepage": "https://fabricmc.net/",
+        "sources": "https://example.com/"
+    },
+    "license": "CC0-1.0",
+    "icon": "assets/plantvszombie/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "com.saharat.plantvszombie.PlantVSZombie"
+        ],
+        "client": [
+            "com.saharat.plantvszombie.client.PlantVSZombieClient"
+        ]
+    },
+    "mixins": [
+        "plantvszombie.mixins.json",
+        {
+            "config": "plantvszombie.client.mixins.json",
+            "environment": "client"
+        }
+    ],
+    "depends": {
+        "fabricloader": ">=0.14.22",
+        "fabric-api": "*",
+        "minecraft": "~1.20.1",
+        "java": ">=17"
+    }
+}

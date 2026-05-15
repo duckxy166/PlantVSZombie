@@ -1,0 +1,50 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "gradle: build",
+            "type": "shell",
+            "command": "./gradlew",
+            "args": ["build"],
+            "windows": {
+                "command": ".\\gradlew.bat",
+                "args": ["build"]
+            },
+            "group": { "kind": "build", "isDefault": true },
+            "problemMatcher": []
+        },
+        {
+            "label": "gradle: runClient",
+            "type": "shell",
+            "command": "./gradlew",
+            "args": ["runClient"],
+            "windows": {
+                "command": ".\\gradlew.bat",
+                "args": ["runClient"]
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "gradle: runServer",
+            "type": "shell",
+            "command": "./gradlew",
+            "args": ["runServer"],
+            "windows": {
+                "command": ".\\gradlew.bat",
+                "args": ["runServer"]
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "gradle: genSources",
+            "type": "shell",
+            "command": "./gradlew",
+            "args": ["genSources"],
+            "windows": {
+                "command": ".\\gradlew.bat",
+                "args": ["genSources"]
+            },
+            "problemMatcher": []
+        }
+    ]
+}
