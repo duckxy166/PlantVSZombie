@@ -25,9 +25,15 @@ public class PeashooterEntity extends PathAwareEntity {
     private static final int SHOOT_INTERVAL_TICKS = 30;
     private static final float PEA_SPEED = 0.75F;
     private static final boolean STATIC_MODE = false;
+    private static final TargetMode TARGET_MODE = TargetMode.ALL_LIVING;
 
     private int shootCooldown;
     private float manualFacingYaw;
+
+    private enum TargetMode {
+        ZOMBIES_ONLY,
+        ALL_LIVING
+    }
 
     public PeashooterEntity(EntityType<? extends PeashooterEntity> entityType, World world) {
         super(entityType, world);
@@ -132,7 +138,10 @@ public class PeashooterEntity extends PathAwareEntity {
             return false;
         }
 
-        return entity instanceof Monster;
+        return switch (TARGET_MODE) {
+            case ZOMBIES_ONLY -> entity instanceof Monster;
+            case ALL_LIVING -> true;
+        };
     }
 
     private boolean isInManualFacingCone(LivingEntity entity) {
