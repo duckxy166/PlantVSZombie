@@ -2,7 +2,9 @@
     "required": true,
     "package": "com.saharat.plantvszombie.mixin",
     "compatibilityLevel": "JAVA_17",
-    "mixins": [],
+    "mixins": [
+        "ZombieEntityMixin"
+    ],
     "injectors": {
         "defaultRequire": 1
     }
