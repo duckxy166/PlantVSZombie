@@ -51,7 +51,7 @@ public class PeashooterRenderer extends EntityRenderer<PeashooterEntity> {
 
         matrices.push();
         matrices.translate(HEAD_PIVOT_X, HEAD_PIVOT_Y, HEAD_PIVOT_Z);
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-headYaw - 90.0F));
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-headYaw));
         matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-pitch));
         matrices.translate(-HEAD_PIVOT_X, -HEAD_PIVOT_Y, -HEAD_PIVOT_Z);
         this.renderModelItem(entity, matrices, vertexConsumers, light, this.headStack);
