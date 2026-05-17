@@ -16,6 +16,7 @@ public class PlantVSZombie implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     private static final String STARTING_SUN_TAG = MOD_ID + ".starting_sun_given";
     private static final String STARTING_PLANT_KIT_TAG = MOD_ID + ".starting_plant_kit_given";
+    private static final String STARTING_SEED_CATALOG_TAG = MOD_ID + ".starting_seed_catalog_given";
     private static final int STARTING_SUN = 50;
 
     @Override
@@ -40,6 +41,12 @@ public class PlantVSZombie implements ModInitializer {
             giveStack(player, new ItemStack(ModItems.SUNFLOWER_SEED_PACKET));
             giveStack(player, new ItemStack(ModItems.PLANT_GUIDE_BOOK));
             player.addCommandTag(STARTING_PLANT_KIT_TAG);
+        }
+
+        if (!player.getCommandTags().contains(STARTING_SEED_CATALOG_TAG)) {
+            giveStack(player, new ItemStack(ModItems.PEASHOOTER_SEED_PACKET));
+            giveStack(player, new ItemStack(ModItems.WALLNUT_SEED_PACKET));
+            player.addCommandTag(STARTING_SEED_CATALOG_TAG);
         }
     }
 

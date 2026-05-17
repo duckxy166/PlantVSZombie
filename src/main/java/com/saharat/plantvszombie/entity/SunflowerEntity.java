@@ -9,8 +9,10 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -20,6 +22,7 @@ public class SunflowerEntity extends PathAwareEntity {
     private static final int SUN_GENERATION_INTERVAL_TICKS = 200;
 
     private int sunCooldown = SUN_GENERATION_INTERVAL_TICKS;
+    private float manualFacingYaw;
 
     public SunflowerEntity(EntityType<? extends SunflowerEntity> entityType, World world) {
         super(entityType, world);
@@ -72,6 +75,27 @@ public class SunflowerEntity extends PathAwareEntity {
     @Override
     public boolean canImmediatelyDespawn(double distanceSquared) {
         return false;
+    }
+
+    public void setManualFacingYaw(float yaw) {
+        this.manualFacingYaw = MathHelper.wrapDegrees(yaw);
+        this.setYaw(this.manualFacingYaw);
+        this.bodyYaw = this.manualFacingYaw;
+        this.prevBodyYaw = this.manualFacingYaw;
+        this.headYaw = this.manualFacingYaw;
+        this.prevHeadYaw = this.manualFacingYaw;
+    }
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putFloat("ManualFacingYaw", this.manualFacingYaw);
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        this.setManualFacingYaw(nbt.getFloat("ManualFacingYaw"));
     }
 
     private void spawnSun() {

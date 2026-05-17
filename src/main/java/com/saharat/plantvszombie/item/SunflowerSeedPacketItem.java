@@ -42,6 +42,7 @@ public class SunflowerSeedPacketItem extends Item {
                     player.getYaw(),
                     0.0F
             );
+            sunflower.setManualFacingYaw(player.getYaw());
 
             if (!world.isSpaceEmpty(sunflower)) {
                 return ActionResult.FAIL;

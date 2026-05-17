@@ -58,7 +58,7 @@ public class PeaProjectileEntity extends ThrownItemEntity {
     }
 
     private static boolean isPlantEntity(Entity entity) {
-        return entity instanceof PeashooterEntity || entity instanceof SunflowerEntity;
+        return entity instanceof PeashooterEntity || entity instanceof SunflowerEntity || entity instanceof WallnutEntity;
     }
 
     @Override

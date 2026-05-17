@@ -12,6 +12,8 @@ import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.MathHelper;
 
 public class SunflowerRenderer extends EntityRenderer<SunflowerEntity> {
     private static final Identifier TEXTURE = new Identifier(PlantVSZombie.MOD_ID, "textures/block/sunflower.png");
@@ -30,6 +32,8 @@ public class SunflowerRenderer extends EntityRenderer<SunflowerEntity> {
     public void render(SunflowerEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         matrices.push();
         matrices.translate(0.0D, MODEL_Y_OFFSET, 0.0D);
+        float bodyYaw = MathHelper.lerpAngleDegrees(tickDelta, entity.prevBodyYaw, entity.bodyYaw);
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F - bodyYaw));
         this.itemRenderer.renderItem(
                 this.sunflowerStack,
                 ModelTransformationMode.NONE,

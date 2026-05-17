@@ -4,6 +4,7 @@ import com.saharat.plantvszombie.PlantVSZombie;
 import com.saharat.plantvszombie.item.PlantGuideBookItem;
 import com.saharat.plantvszombie.item.PeashooterSeedPacketItem;
 import com.saharat.plantvszombie.item.SunflowerSeedPacketItem;
+import com.saharat.plantvszombie.item.WallnutSeedPacketItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.BlockItem;
@@ -23,6 +24,7 @@ public final class ModItems {
     public static final Item SUN = register("sun", new Item(new FabricItemSettings()));
     public static final Item PEASHOOTER_SEED_PACKET = register("peashooter_seed_packet", new PeashooterSeedPacketItem(new FabricItemSettings().maxCount(1)));
     public static final Item SUNFLOWER_SEED_PACKET = register("sunflower_seed_packet", new SunflowerSeedPacketItem(new FabricItemSettings().maxCount(1)));
+    public static final Item WALLNUT_SEED_PACKET = register("wallnut_seed_packet", new WallnutSeedPacketItem(new FabricItemSettings().maxCount(1)));
     public static final Item PLANT_GUIDE_BOOK = register("plant_guide_book", new PlantGuideBookItem(new FabricItemSettings().maxCount(1)));
     public static final Item ZOMBIE_SPAWNER = register("zombie_spawner", new BlockItem(ModBlocks.ZOMBIE_SPAWNER, new FabricItemSettings()));
 
@@ -53,6 +55,7 @@ public final class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
             entries.add(PEASHOOTER_SEED_PACKET);
             entries.add(SUNFLOWER_SEED_PACKET);
+            entries.add(WALLNUT_SEED_PACKET);
             entries.add(PLANT_GUIDE_BOOK);
         });
     }
