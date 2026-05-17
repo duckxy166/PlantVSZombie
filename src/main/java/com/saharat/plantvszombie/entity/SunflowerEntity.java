@@ -15,7 +15,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class SunflowerEntity extends PathAwareEntity {
-    public static final int SUN_VALUE = 50;
+    public static final int SUN_VALUE = 25;
 
     private static final int SUN_GENERATION_INTERVAL_TICKS = 200;
 

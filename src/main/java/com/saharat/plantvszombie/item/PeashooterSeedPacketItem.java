@@ -55,6 +55,7 @@ public class PeashooterSeedPacketItem extends Item {
                     player.getYaw(),
                     0.0F
             );
+            peashooter.setManualFacingYaw(player.getYaw());
 
             if (!world.isSpaceEmpty(peashooter)) {
                 return ActionResult.FAIL;

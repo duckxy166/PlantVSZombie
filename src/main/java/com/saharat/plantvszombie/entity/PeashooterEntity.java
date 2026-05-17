@@ -9,6 +9,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Box;
@@ -20,11 +21,13 @@ import java.util.Comparator;
 
 public class PeashooterEntity extends PathAwareEntity {
     private static final double TARGET_RANGE = 12.0D;
+    private static final double TARGET_CONE_DOT_THRESHOLD = 0.5D;
     private static final int SHOOT_INTERVAL_TICKS = 30;
     private static final float PEA_SPEED = 0.75F;
     private static final boolean STATIC_MODE = false;
 
     private int shootCooldown;
+    private float manualFacingYaw;
 
     public PeashooterEntity(EntityType<? extends PeashooterEntity> entityType, World world) {
         super(entityType, world);
@@ -59,6 +62,7 @@ public class PeashooterEntity extends PathAwareEntity {
 
         LivingEntity target = this.findTarget();
         if (target == null) {
+            this.faceManualDirection();
             if (this.shootCooldown > 0) {
                 this.shootCooldown--;
             }
@@ -88,6 +92,24 @@ public class PeashooterEntity extends PathAwareEntity {
         return false;
     }
 
+    public void setManualFacingYaw(float yaw) {
+        this.manualFacingYaw = MathHelper.wrapDegrees(yaw);
+        this.faceManualDirection();
+    }
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putFloat("ManualFacingYaw", this.manualFacingYaw);
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        this.manualFacingYaw = nbt.getFloat("ManualFacingYaw");
+        this.faceManualDirection();
+    }
+
     private LivingEntity findTarget() {
         Box searchBox = this.getBoundingBox().expand(TARGET_RANGE, 4.0D, TARGET_RANGE);
 
@@ -105,11 +127,38 @@ public class PeashooterEntity extends PathAwareEntity {
                 || !entity.isAlive()
                 || entity.isSpectator()
                 || this.squaredDistanceTo(entity) > maxDistanceSquared
+                || !this.isInManualFacingCone(entity)
                 || !this.canSee(entity)) {
             return false;
         }
 
         return entity instanceof Monster;
+    }
+
+    private boolean isInManualFacingCone(LivingEntity entity) {
+        double dx = entity.getX() - this.getX();
+        double dz = entity.getZ() - this.getZ();
+        double distance = Math.sqrt(dx * dx + dz * dz);
+        if (distance < 1.0E-7D) {
+            return true;
+        }
+
+        double yawRadians = this.manualFacingYaw * MathHelper.RADIANS_PER_DEGREE;
+        double facingX = -Math.sin(yawRadians);
+        double facingZ = Math.cos(yawRadians);
+        double targetX = dx / distance;
+        double targetZ = dz / distance;
+
+        return facingX * targetX + facingZ * targetZ >= TARGET_CONE_DOT_THRESHOLD;
+    }
+
+    private void faceManualDirection() {
+        this.setYaw(this.manualFacingYaw);
+        this.bodyYaw = this.manualFacingYaw;
+        this.prevBodyYaw = this.manualFacingYaw;
+        this.headYaw = this.manualFacingYaw;
+        this.prevHeadYaw = this.manualFacingYaw;
+        this.setPitch(0.0F);
     }
 
     private void faceTarget(LivingEntity target) {
