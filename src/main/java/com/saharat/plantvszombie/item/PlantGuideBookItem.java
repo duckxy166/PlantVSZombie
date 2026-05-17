@@ -12,11 +12,28 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 public class PlantGuideBookItem extends Item {
     public PlantGuideBookItem(Settings settings) {
         super(settings);
+    }
+
+    @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        ItemStack stack = user.getStackInHand(hand);
+
+        if (!world.isClient) {
+            user.sendMessage(Text.literal("Plant Guide"), false);
+            user.sendMessage(Text.literal("- Right-click Sunflower: pick it back up as a seed packet."), false);
+            user.sendMessage(Text.literal("- Sunflower seed packets are free to replant."), false);
+            user.sendMessage(Text.literal("- Right-click Peashooter: set the direction it faces and shoots."), false);
+            user.sendMessage(Text.literal("- Sunflowers produce Sun (25). Peashooters cost 100 sun."), false);
+            world.playSound(null, user.getBlockPos(), SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.PLAYERS, 0.8F, 1.0F);
+        }
+
+        return TypedActionResult.success(stack, world.isClient);
     }
 
     @Override
