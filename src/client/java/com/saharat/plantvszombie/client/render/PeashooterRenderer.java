@@ -16,7 +16,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 
 public class PeashooterRenderer extends EntityRenderer<PeashooterEntity> {
-    private static final Identifier TEXTURE = new Identifier(PlantVSZombie.MOD_ID, "textures/block/texture.png");
+    private static final Identifier TEXTURE = new Identifier(PlantVSZombie.MOD_ID, "textures/entity/peashooter.png");
     private static final double MODEL_X_OFFSET = 0.0D;
     private static final double MODEL_Y_OFFSET = 0.5D;
     private static final double MODEL_Z_OFFSET = 0.0D;
