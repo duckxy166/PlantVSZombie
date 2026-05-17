@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "": {
+            "model": "plantvszombie:block/zombie_spawner"
+        }
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "entity.plantvszombie.peashooter": "Peashooter",
+    "entity.plantvszombie.pea_projectile": "Pea",
+    "entity.plantvszombie.sunflower": "Sunflower",
+    "entity.plantvszombie.wallnut": "Wall-nut",
+    "block.plantvszombie.zombie_spawner": "Zombie Spawner",
+    "item.plantvszombie.peashooter": "Peashooter Model",
+    "item.plantvszombie.sunflower": "Sunflower Model",
+    "item.plantvszombie.wallnut": "Wall-nut Model",
+    "item.plantvszombie.sun": "Sun (50)",
+    "item.plantvszombie.peashooter_seed_packet": "Peashooter Seed Packet",
+    "item.plantvszombie.peashooter_spawn_egg": "Peashooter Spawn Egg",
+    "item.plantvszombie.sunflower_spawn_egg": "Sunflower Spawn Egg",
+    "item.plantvszombie.wallnut_spawn_egg": "Wall-nut Spawn Egg"
+}
