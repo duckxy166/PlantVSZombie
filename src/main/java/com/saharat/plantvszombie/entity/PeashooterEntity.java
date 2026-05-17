@@ -24,7 +24,7 @@ public class PeashooterEntity extends PathAwareEntity {
     private static final double TARGET_CONE_DOT_THRESHOLD = 0.5D;
     private static final int SHOOT_INTERVAL_TICKS = 30;
     private static final float PEA_SPEED = 0.75F;
-    private static final boolean STATIC_MODE = false;
+    private static final boolean STATIC_MODE = true;
 
     private int shootCooldown;
     private float manualFacingYaw;
