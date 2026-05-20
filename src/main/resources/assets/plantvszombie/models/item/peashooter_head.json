@@ -6,8 +6,8 @@
                          64
                      ],
     "textures":  {
-                     "0":  "plantvszombie:block/texture",
-                     "particle":  "plantvszombie:block/texture"
+"0": "plantvszombie:block/texture",
+"particle": "plantvszombie:block/texture"
                  },
     "elements":  [
                      {
