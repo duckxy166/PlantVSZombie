@@ -24,7 +24,6 @@ public class PeashooterEntity extends PathAwareEntity {
     private static final double TARGET_CONE_DOT_THRESHOLD = 0.5D;
     private static final int SHOOT_INTERVAL_TICKS = 30;
     private static final float PEA_SPEED = 0.75F;
-    private static final boolean STATIC_MODE = false;
 
     private int shootCooldown;
     private float manualFacingYaw;
@@ -56,7 +55,7 @@ public class PeashooterEntity extends PathAwareEntity {
         }
         this.setVelocity(Vec3d.ZERO);
 
-        if (STATIC_MODE || this.getWorld().isClient) {
+        if (this.getWorld().isClient) {
             return;
         }
 
@@ -123,7 +122,7 @@ public class PeashooterEntity extends PathAwareEntity {
         double maxDistanceSquared = TARGET_RANGE * TARGET_RANGE;
 
         if (entity == this
-                || entity instanceof PeashooterEntity
+                || isPlantEntity(entity)
                 || !entity.isAlive()
                 || entity.isSpectator()
                 || this.squaredDistanceTo(entity) > maxDistanceSquared
@@ -133,6 +132,10 @@ public class PeashooterEntity extends PathAwareEntity {
         }
 
         return entity instanceof Monster;
+    }
+
+    private static boolean isPlantEntity(LivingEntity entity) {
+        return entity instanceof PeashooterEntity || entity instanceof SunflowerEntity || entity instanceof WallnutEntity;
     }
 
     private boolean isInManualFacingCone(LivingEntity entity) {
