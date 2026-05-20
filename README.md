@@ -1,68 +1,74 @@
 # PlantVSZombie
 
-A playable Minecraft 1.20.1 Fabric mod prototype inspired by lane-defense games. The project turns Minecraft mobs into a small Plants-vs-Zombies-style combat sandbox with placeable plants, zombie targeting, sun economy, and visible projectile combat.
+A Minecraft 1.20.1 Fabric mod that turns a flat test world into a small lane-defense combat sandbox. Players place plants, generate sun, block incoming zombies, and use Peashooters to fire pea projectiles at hostile mobs.
 
-This is an unofficial fan-made prototype for learning, entertainment, and portfolio proof. It is not affiliated with Mojang, Microsoft, PopCap, or EA.
+This is an unofficial fan-made modding experiment. It is not affiliated with Mojang, Microsoft, PopCap, or EA.
 
-![PlantVSZombie wide lawn defense scene](docs/portfolio/lawn-defense-wide.png)
+![PlantVSZombie lawn defense scene](docs/screenshots/lawn-defense-wide.png)
 
-## What This Shows
+## Overview
 
-- Custom Minecraft Fabric entities for Peashooter, Sunflower, Wall-nut, and pea projectiles.
-- A playable defense loop: place plants, generate sun, block zombies, and shoot hostile mobs.
-- Zombie behavior changes through mixins so zombies prioritize plant targets.
-- Custom item models and renderers that make the plants readable in-game.
-- A small portfolio-ready modding project built with Java, Fabric, and iterative AI-assisted development.
+PlantVSZombie is built around a simple loop:
+
+1. Place Sunflowers to generate sun.
+2. Spend sun on Peashooters and Wall-nuts.
+3. Aim plants by facing the direction they should defend.
+4. Spawn zombies and watch the plant line hold the lane.
+
+The mod focuses on making the interaction readable in-game: plants have distinct silhouettes, zombies pick plant targets, and Peashooter shots are visible while crossing the lane.
 
 ## Screenshots
 
 ### Peashooter Combat
 
-Peashooters detect hostile `Monster` targets in front of them and fire pea projectiles at zombies.
+Peashooters scan for hostile `Monster` targets in their forward cone and fire no-gravity pea projectiles.
 
-![Peashooter projectiles hitting zombies](docs/portfolio/peashooter-projectiles.png)
+![Peashooter projectiles hitting zombies](docs/screenshots/peashooter-projectiles.png)
 
 ### Plant Lineup
 
-The prototype includes multiple plant roles: Sunflowers for economy, Wall-nuts for defense, and Peashooters for damage.
+Sunflowers support the economy, Wall-nuts absorb pressure, and Peashooters handle damage.
 
-![Plant lineup fighting zombies](docs/portfolio/plant-lineup-combat.png)
+![Plant lineup fighting zombies](docs/screenshots/plant-lineup-combat.png)
 
-## Key Features
+## Features
 
-- **Peashooter targeting and shooting**: Finds hostile monsters in a forward cone, tracks the target, and fires no-gravity pea projectiles.
-- **Pea projectile damage**: Projectiles damage living targets while ignoring friendly plant entities.
-- **Zombie plant targeting**: Zombies can target Wall-nuts, Peashooters, and Sunflowers, making the defense loop interactive.
-- **Sun economy**: Sunflowers produce sun, and seed packets consume sun for stronger plants.
-- **Seed packet placement**: Players can place Peashooters, Sunflowers, and Wall-nuts through custom items.
-- **Plant guide book**: Gives seed packets, sets plant facing direction, and allows returning plants to seed packets.
-- **Custom rendering**: Plant entities use Minecraft item model rendering so the prototype can iterate quickly on Blockbench-style assets.
+- **Placeable plants**: Seed packet items place Peashooters, Sunflowers, and Wall-nuts into the world.
+- **Directional defense**: Plants remember the player's facing direction when placed or adjusted.
+- **Peashooter targeting**: Peashooters find visible hostile monsters inside a forward cone and shoot at them.
+- **Projectile combat**: Pea projectiles deal damage, ignore friendly plants, and despawn after impact or a short lifetime.
+- **Sun economy**: Sunflowers produce sun, and stronger plants consume sun when placed.
+- **Zombie pressure**: Vanilla zombies can target plant entities, with Wall-nuts given higher priority.
+- **Plant guide book**: Gives seed packets, changes plant facing, and returns placed plants back into packet form.
+- **Custom rendering**: Plants use custom client renderers and item-model-based visuals for quick iteration.
 
 ## Tech Stack
 
-- **Game**: Minecraft 1.20.1
-- **Mod loader**: Fabric Loader
-- **API**: Fabric API
-- **Language**: Java 17
-- **Build**: Gradle / Fabric Loom
-- **Client visuals**: Custom entity renderers and JSON item models
-- **AI workflow**: Codex-assisted debugging, feature iteration, and README/portfolio packaging
+- Minecraft 1.20.1
+- Fabric Loader
+- Fabric API
+- Java 17
+- Gradle / Fabric Loom
+- Client-side entity renderers
+- JSON item models and Minecraft resource assets
 
-## My Role
+## Implemented Systems
 
-- Designed the PvZ-style gameplay loop inside Minecraft constraints.
-- Implemented custom entities, registries, seed packet items, projectile behavior, and zombie AI mixins.
-- Debugged targeting behavior across several iterations: spawn/render fixes, AI goal fixes, rotation, and Peashooter firing filters.
-- Built the portfolio README with in-game proof screenshots from the Fabric dev client.
-- Packaged the project so a viewer can understand the result in under a minute.
+- Custom entity registration for Peashooter, Sunflower, Wall-nut, and pea projectiles.
+- Server-side plant behavior that keeps plants stationary while still ticking combat logic.
+- Peashooter aim logic based on line of sight, distance, facing cone, and hostile mob filtering.
+- Projectile hit handling that damages enemies without knocking them around or harming plant entities.
+- Zombie AI mixin that adds plant target goals to vanilla zombie behavior.
+- Seed packet placement logic with sun-cost checks and collision checks.
+- Guide book interactions for quality-of-life plant control.
 
-## Interesting Implementation Details
+## Implementation Details
 
-- Peashooters stay stationary by stopping navigation and zeroing velocity each tick.
-- Targeting uses a manual-facing cone so placed plants defend the direction chosen by the player.
-- Projectile spawn position is offset from the Peashooter's head direction to make shots look like they come from the mouth.
-- Pea projectiles disable gravity and discard themselves after impact or a short lifetime.
-- Zombies are modified with mixins instead of replacing vanilla zombie code directly.
+- Peashooters stop navigation and zero velocity every tick so they behave like planted defenses instead of wandering mobs.
+- The forward cone uses the plant's saved manual yaw, so a placed plant defends the lane it was pointed toward.
+- Pea spawn position is offset from the Peashooter's head direction so shots appear to come from the mouth.
+- Projectiles use no gravity to keep shots readable and lane-like.
+- Zombie behavior is extended through mixins rather than replacing vanilla zombie classes.
 
 ## How To Run
 
@@ -98,7 +104,7 @@ build/libs/
 3. Use the Plant Guide Book or seed packets to place Sunflowers, Peashooters, and Wall-nuts.
 4. Face the direction you want a plant to defend before placing it.
 5. Spawn zombies or use the zombie spawner block.
-6. Watch Peashooters fire at hostile monsters while Wall-nuts absorb pressure.
+6. Watch Peashooters fire at hostile monsters while Wall-nuts hold the front line.
 
 Useful summon command:
 
@@ -110,7 +116,7 @@ Useful summon command:
 
 ```text
 src/main/java/com/saharat/plantvszombie/
-  entity/      Custom plant and projectile entities
+  entity/      Plant and projectile entities
   item/        Seed packets and plant guide book
   mixin/       Vanilla zombie behavior changes
   registry/   Entity, item, and block registration
@@ -124,15 +130,6 @@ src/main/resources/
   plantvszombie.mixins.json
 ```
 
-## Portfolio Notes
+## Notes
 
-This repo is strongest as a Minecraft modding proof:
-
-- Shows Java gameplay systems inside an existing engine.
-- Shows AI behavior and entity interaction, not just static items.
-- Has visual proof from real in-game screenshots.
-- Has a clear before/after story: a static plant prototype becomes a playable lane-defense combat loop.
-
-## License / Asset Note
-
-This project is currently a learning prototype. Review assets, naming, and third-party inspiration before using it commercially or publishing it as an official portfolio centerpiece.
+This project is a learning prototype. Review assets, naming, and third-party inspiration before using it outside a personal or educational context.
